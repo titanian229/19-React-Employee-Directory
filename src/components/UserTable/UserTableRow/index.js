@@ -1,13 +1,16 @@
 import React from 'react';
 import './style.scss';
 
+import Image from 'react-bootstrap/Image'
+
+
 const UserTableRow = (props) => {
     // const {sortCol, setSortCol} = {props}
     let { name, email, location, dob, phone, picture } = props.user;
     name = `${name.last}, ${name.first}`;
     return (
         <tr>
-            <td></td>
+            <td><Image src={picture.thumbnail} roundedCircle /></td>
             <td>{name}</td>
             <td>{email}</td>
             <td>{`${location.city}, ${location.state}`}</td>

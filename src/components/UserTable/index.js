@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table'
 
 const UserTable = (props) => {
     return (
-        <Table>
+        <Table striped bordered hover className="userTable">
             <UserTableHeader />
             <tbody>
                 {props.users.map((user, ind) => (

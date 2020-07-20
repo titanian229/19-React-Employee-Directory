@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import SearchBar from '../components/SearchBar'
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 import UserTable from '../components/UserTable'
 import Alert from 'react-bootstrap/Alert'
-
+import styles from './Search.module.scss'
 
 import useAxios from 'axios-hooks'
 
@@ -22,9 +22,12 @@ const Search = () => {
     return (
         <div>
             <SearchBar setSearch={setSearch} searchField={searchText} />
-            <Container>
+            {/* <Container> */}
+            <div className={styles.wideContainer}>
                 <UserTable users={data.results} sortSetter={null} />
-            </Container>
+
+            </div>
+            {/* </Container> */}
 
         </div>
     )
