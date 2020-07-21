@@ -8,6 +8,11 @@ const Search = () => {
     // let [{ data, loading, error }] = useAxios('http://slowwly.robertomurray.co.uk/delay/3000/url/http://www.google.co.uk'); //&seed=jam'
 
     const [searchText, setSearchText] = useState('');
+    const [searchBy, setSearchBy] = useState('name')
+
+    const changeSearchBy = (searchBySelection) => {
+        setSearchBy(searchBySelection.target.value)
+    }
 
     const setSearch = (searchFieldContents) => {
         setSearchText(searchFieldContents.target.value);
@@ -15,9 +20,9 @@ const Search = () => {
 
     return (
         <div>
-            <SearchBar setSearch={setSearch} searchField={searchText} />
+            <SearchBar setSearch={setSearch} changeSearchBy={changeSearchBy} searchField={searchText} />
             <div className={styles.wideContainer}>
-                <UserTable searchText={searchText} />
+                <UserTable searchBy={searchBy} searchText={searchText} />
             </div>
         </div>
     );

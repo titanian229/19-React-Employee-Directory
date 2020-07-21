@@ -3,3 +3,9 @@ $lighter: #3d52d5;
 $dark: #3c3744;
 $light: #B4C5E4;
 $white: #FBFFF1;
+
+html, body, div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

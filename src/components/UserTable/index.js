@@ -41,9 +41,57 @@ const sortBy = {
     },
 };
 
-const UserTable = (props) => {
+const filterBy = {
+    name: (users, searchText) => {
+        searchText.forEach((stringSegment) => {
+            users = users.filter(
+                (user) =>
+                    user.name.first.toLowerCase().includes(stringSegment) ||
+                    user.name.last.toLowerCase().includes(stringSegment)
+            );
+        });
+        return users;
+    },
+    email: (users, searchText) => {
+        searchText.forEach((stringSegment) => {
+            users = users.filter(
+                (user) =>
+                    user.email.toLowerCase().includes(stringSegment)
+            );
+        });
+        return users;
+    },
+    location: (users, searchText) => {
+        searchText.forEach((stringSegment) => {
+            users = users.filter(
+                (user) =>
+                    user.location.city.toLowerCase().includes(stringSegment)
+            );
+        });
+        return users;
+    },
+    dob: (users, searchText) => {
+        searchText.forEach((stringSegment) => {
+            users = users.filter(
+                (user) =>
+                    user.dob.date.toLowerCase().includes(stringSegment)
+            );
+        });
+        return users;
+    },
+    phone: (users, searchText) => {
+        searchText.forEach((stringSegment) => {
+            users = users.filter(
+                (user) =>
+                    user.phone.includes(stringSegment)
+            );
+        });
+        return users;
+    },
+};
 
-    let [{ data, loading, error }] = useAxios('https://randomuser.me/api/?results=200&nat=CA'); //&seed=jam'
+const UserTable = (props) => {
+    let [{ data, loading, error }] = useAxios('https://randomuser.me/api/?results=200&nat=CA&seed=jamie'); //&seed=jam'
     const [sort, setSort] = useState('name');
     const [asc, setAsc] = useState(true);
 
@@ -58,21 +106,17 @@ const UserTable = (props) => {
         if (sortField === sort) {
             setAsc(!asc);
         } else {
+            setAsc(true);
             setSort(sortField);
         }
     };
 
     if (searchText !== '') {
         searchText = searchText.trim().toLowerCase().split(' ');
-        searchText.forEach((stringSegment) => {
-            users = users.filter(
-                (user) =>
-                    user.name.first.toLowerCase().includes(stringSegment) ||
-                    user.name.last.toLowerCase().includes(stringSegment)
-            );
-        });
+        users = filterBy[props.searchBy](users, searchText)
     }
 
+    console.time('sorting');
     switch (sort) {
         case 'name':
         case 'location':
@@ -87,7 +131,7 @@ const UserTable = (props) => {
             users = users.sort(sortBy.name(asc));
             break;
     }
-
+    console.timeEnd('sorting');
     return (
         <Table striped bordered hover className="userTable">
             <UserTableHeader sort={sort} changeSort={changeSort} asc={asc} setAsc={setAsc} />
