@@ -3,6 +3,8 @@ import './style.scss';
 import UserTableHeader from './UserTableHeader';
 import UserTableRow from './UserTableRow';
 import Table from 'react-bootstrap/Table';
+import useAxios from 'axios-hooks';
+import Alert from 'react-bootstrap/Alert';
 
 const sortBy = {
     name: (asc) => {
@@ -38,9 +40,18 @@ const sortBy = {
         };
     },
 };
+
 const UserTable = (props) => {
+
+    let [{ data, loading, error }] = useAxios('https://randomuser.me/api/?results=200&nat=CA'); //&seed=jam'
     const [sort, setSort] = useState('name');
     const [asc, setAsc] = useState(true);
+
+    if (loading) return <Alert>Loading...</Alert>;
+    if (error) return <Alert variant="danger">Error, API fetch failed.</Alert>;
+
+    let { results: users } = data;
+    let { searchText } = props;
 
     const changeSort = (obj) => {
         const sortField = obj.target.dataset.sort;
@@ -51,7 +62,6 @@ const UserTable = (props) => {
         }
     };
 
-    let { users, searchText } = props;
     if (searchText !== '') {
         searchText = searchText.trim().toLowerCase().split(' ');
         searchText.forEach((stringSegment) => {
@@ -80,7 +90,7 @@ const UserTable = (props) => {
 
     return (
         <Table striped bordered hover className="userTable">
-            <UserTableHeader sort={sort} changeSort={changeSort} setAsc={setAsc} />
+            <UserTableHeader sort={sort} changeSort={changeSort} asc={asc} setAsc={setAsc} />
             <tbody>
                 {users.map((user, ind) => (
                     <UserTableRow key={ind} user={user} />
