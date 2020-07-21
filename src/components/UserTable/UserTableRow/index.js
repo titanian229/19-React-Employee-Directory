@@ -11,7 +11,7 @@ const UserTableRow = (props) => {
     return (
         <tr>
             <td><Image src={picture.thumbnail} roundedCircle /></td>
-            <td>{name}</td>
+            <td className="name" data-id={phone} onClick={props.showInfo}>{name}</td>
             <td>{email}</td>
             <td>{`${location.city}, ${location.state}`}</td>
             <td>{new Date(dob.date).getFullYear()}</td>

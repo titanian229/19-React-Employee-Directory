@@ -3,3 +3,8 @@
 .nobreak {
     white-space: nowrap;
 }
+
+.name:hover {
+    color: $blue;
+    text-decoration: underline;
+}

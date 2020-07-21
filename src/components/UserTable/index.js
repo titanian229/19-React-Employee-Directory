@@ -54,37 +54,25 @@ const filterBy = {
     },
     email: (users, searchText) => {
         searchText.forEach((stringSegment) => {
-            users = users.filter(
-                (user) =>
-                    user.email.toLowerCase().includes(stringSegment)
-            );
+            users = users.filter((user) => user.email.toLowerCase().includes(stringSegment));
         });
         return users;
     },
     location: (users, searchText) => {
         searchText.forEach((stringSegment) => {
-            users = users.filter(
-                (user) =>
-                    user.location.city.toLowerCase().includes(stringSegment)
-            );
+            users = users.filter((user) => user.location.city.toLowerCase().includes(stringSegment));
         });
         return users;
     },
     dob: (users, searchText) => {
         searchText.forEach((stringSegment) => {
-            users = users.filter(
-                (user) =>
-                    user.dob.date.toLowerCase().includes(stringSegment)
-            );
+            users = users.filter((user) => user.dob.date.toLowerCase().includes(stringSegment));
         });
         return users;
     },
     phone: (users, searchText) => {
         searchText.forEach((stringSegment) => {
-            users = users.filter(
-                (user) =>
-                    user.phone.includes(stringSegment)
-            );
+            users = users.filter((user) => user.phone.includes(stringSegment));
         });
         return users;
     },
@@ -101,6 +89,13 @@ const UserTable = (props) => {
     let { results: users } = data;
     let { searchText } = props;
 
+    const populateModal = (row) => {
+        const selectedUserPhone = row.target.dataset.id;
+
+        const userInfo = users.filter((user) => user.phone === selectedUserPhone)[0];
+        props.showInfoModal(userInfo);
+    };
+
     const changeSort = (obj) => {
         const sortField = obj.target.dataset.sort;
         if (sortField === sort) {
@@ -113,10 +108,9 @@ const UserTable = (props) => {
 
     if (searchText !== '') {
         searchText = searchText.trim().toLowerCase().split(' ');
-        users = filterBy[props.searchBy](users, searchText)
+        users = filterBy[props.searchBy](users, searchText);
     }
 
-    console.time('sorting');
     switch (sort) {
         case 'name':
         case 'location':
@@ -131,13 +125,13 @@ const UserTable = (props) => {
             users = users.sort(sortBy.name(asc));
             break;
     }
-    console.timeEnd('sorting');
+
     return (
         <Table striped bordered hover className="userTable">
             <UserTableHeader sort={sort} changeSort={changeSort} asc={asc} setAsc={setAsc} />
             <tbody>
                 {users.map((user, ind) => (
-                    <UserTableRow key={ind} user={user} />
+                    <UserTableRow key={ind} user={user} showInfo={populateModal} />
                 ))}
             </tbody>
         </Table>
