@@ -9,8 +9,9 @@ import useAxios from 'axios-hooks'
 
 const Search = () => {
 
+    let [{ data, loading, error }] = useAxios('https://randomuser.me/api/?results=50&nat=CA&seed=jam');
+
     const [searchText, setSearchText] = useState('')
-    let [{ data, loading, error }, refetch] = useAxios('https://randomuser.me/api/?results=50&nat=CA');
 
     if (loading) return <Alert>Loading...</Alert>
     if (error) return <Alert variant="danger">Error, API fetch failed.</Alert>
@@ -24,8 +25,7 @@ const Search = () => {
             <SearchBar setSearch={setSearch} searchField={searchText} />
             {/* <Container> */}
             <div className={styles.wideContainer}>
-                <UserTable users={data.results} sortSetter={null} />
-
+                <UserTable users={data.results} sortSetter={null} searchText={searchText} />
             </div>
             {/* </Container> */}
 

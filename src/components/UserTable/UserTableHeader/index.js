@@ -1,17 +1,28 @@
 import React from 'react';
-import './style.scss'
+import './style.scss';
 
 const UserTableHeader = (props) => {
     // const {sortCol, setSortCol} = {props}
+
     return (
-        <thead>
+        <thead className="dynamicHeader">
             <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Location</th>
-                <th>Birthdate</th>
-                <th>Phone</th>
+                <th data-sort="name" onClick={props.changeSort}>
+                    <span>Name</span>
+                </th>
+                <th data-sort="email" onClick={props.changeSort}>
+                    Email
+                </th>
+                <th data-sort="location" onClick={props.changeSort}>
+                    Location
+                </th>
+                <th data-sort="dob" onClick={props.changeSort}>
+                    Birthdate
+                </th>
+                <th data-sort="phone" onClick={props.changeSort}>
+                    Phone
+                </th>
             </tr>
         </thead>
     );
