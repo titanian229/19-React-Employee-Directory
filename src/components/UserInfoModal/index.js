@@ -8,9 +8,9 @@ const UserInfoModal = (props) => {
     const user = props.user;
 
     return (
-        <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header>
-                <Modal.Title id="contained-modal-title-vcenter">{`${user.name.last}, ${user.name.first}`}</Modal.Title>
+        <Modal show={props.show} onHide={props.onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">{`${user.name.first} ${user.name.last}`}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="d-flex align-items-center justify-content-center mb-3">
@@ -42,7 +42,7 @@ const UserInfoModal = (props) => {
                 </Table>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.toggleModal}>Close</Button>
+                <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
     );

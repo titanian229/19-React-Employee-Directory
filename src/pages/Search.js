@@ -1,29 +1,41 @@
 import React, { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import UserTable from '../components/UserTable';
-import UserInfoModal from '../components/UserInfoModal'
+import UserInfoModal from '../components/UserInfoModal';
 import styles from './Search.module.scss';
 
-
 const Search = () => {
-    // let [{ data, loading, error }] = useAxios('http://slowwly.robertomurray.co.uk/delay/3000/url/http://www.google.co.uk'); //&seed=jam'
-
     const [searchText, setSearchText] = useState('');
-    const [searchBy, setSearchBy] = useState('name')
-    const [infoModal, setInfoModal] = useState({user: null, show: false});
+    const [searchBy, setSearchBy] = useState('name');
+    const [infoModal, setInfoModal] = useState({
+        user: {
+            name: '',
+            dob: { age: '' },
+            phone: '',
+            cell: '',
+            email: '',
+            picture: { large: '' },
+            location: { street: { number: '', name: '' }, city: '', state: '' },
+        },
+        show: false,
+    });
 
     const showInfoModal = (userInfo) => {
-        console.log(userInfo)
-        setInfoModal({user: userInfo, show: true})
-    }
+        console.log(userInfo);
+        setInfoModal({ user: userInfo, show: true });
+    };
 
     const toggleModal = () => {
-        setInfoModal({...infoModal, show: !infoModal.show})
-    }
+        setInfoModal({ ...infoModal, show: !infoModal.show });
+    };
+
+    const onHide = () => {
+        setInfoModal({ ...infoModal, show: false });
+    };
 
     const changeSearchBy = (searchBySelection) => {
-        setSearchBy(searchBySelection.target.value)
-    }
+        setSearchBy(searchBySelection.target.value);
+    };
 
     const setSearch = (searchFieldContents) => {
         setSearchText(searchFieldContents.target.value);
@@ -33,9 +45,9 @@ const Search = () => {
         <div>
             <SearchBar setSearch={setSearch} changeSearchBy={changeSearchBy} searchField={searchText} />
             <div className={styles.wideContainer}>
-                <UserTable searchBy={searchBy} searchText={searchText} showInfoModal={showInfoModal}/>
+                <UserTable searchBy={searchBy} searchText={searchText} showInfoModal={showInfoModal} />
             </div>
-            {(infoModal.show) ? (<UserInfoModal user={infoModal.user} toggleModal={toggleModal} show={true}/>) : ''}
+            <UserInfoModal user={infoModal.user} onHide={onHide} toggleModal={toggleModal} show={infoModal.show} />
         </div>
     );
 };
