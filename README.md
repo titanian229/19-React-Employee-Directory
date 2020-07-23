@@ -14,6 +14,7 @@ A React web application for viewing a database of employees.  Searchable using a
 
 From the main page search text can be entered in the search field.  Options for which field to search, defaulting to name, are below the search field.  Each column can be sorted on by selecting the column title.  Additional information about each individual can be viewed in a modal by clicking on their name.
 
+![Functionality Demo](./functionalityDemo.gif)
 
 ## Author
 Created bv James Lee.
