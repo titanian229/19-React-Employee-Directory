@@ -1,6 +1,6 @@
 # Employee Directory
 
-A React web application for viewing a database of employees.  Searchable using any criteria, name, email, location, etc.  Sortable based on any criteria as well. Created to help manage the contact information of large and diverse organizations.
+A React web application for viewing a database of employees.  Searchable using any criteria, name, email, location, etc.  Sortable based on any criteria as well. Created to help manage the contact information of large and diverse organizations.  Can be found deployed on Heroku [here](https://react-employee-directory-jl.herokuapp.com).
 
 ## Technologies
 
